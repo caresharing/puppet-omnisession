@@ -1,0 +1,76 @@
+#!/bin/bash
+#
+# omnisessiond  This shell script controls the Omnisession Server
+#
+# Author:       Ramon Marco L. Navarro <marco@caresharing.ph>
+#
+# chkconfig:    - 97 03
+#
+# description:  Omnisession Server
+# processname:  omnisessiond
+# config: /etc/mogilicious/omnisessiond.yml
+# config: /etc/mogilicious/mogilicious.yml
+# pidfile: /var/run/omnisessiond/omnisessiond.pid
+#
+
+# source function library
+. /etc/rc.d/init.d/functions
+
+RETVAL=0
+PIDFILE=<%= $omnisession::lock_file %>
+runuser=<%= $omnisession::runuser %>
+
+exec=<%= $omnisession::gem_bin %>
+prog=<%= $omnisession::gem_bin %>
+config=<%= $omnisession::config_file %>
+lockfile=<%= $omnisession::lock_file %>
+
+start() {
+  [ -x $exec ] || exit 5
+  [ -f $config ] || exit 6
+  echo -n $"Starting $prog: "
+  echo "daemon --pidfile=$PIDFILE --user $runuser $exec -C $config start"
+  daemon --pidfile=$PIDFILE --user $runuser $exec -C $config start
+  retval=$?
+  echo
+  [ $retval -eq 0 ] && touch $lockfile
+  return $retval
+}
+
+stop() {
+  echo -n $"Stopping $prog: "
+        killproc -p $PIDFILE $prog
+  retval=$?
+  echo
+  [ $retval -eq 0 ] && rm -f $lockfile
+  return $retval
+}
+
+restart() {
+  stop
+  start
+}
+
+case "$1" in
+  start)
+  start
+  ;;
+  stop)
+  stop
+  ;;
+  restart|force-reload|reload)
+  restart
+  ;;
+  condrestart)
+  [ -f /var/lock/subsys/omnisessiond ] && restart
+  ;;
+  status)
+  status -p $PIDFILE omnisessiond
+  RETVAL=$?
+  ;;
+  *)
+  echo $"Usage: $0 {start|stop|status|restart|reload|force-reload|condrestart}"
+  exit 1
+esac
+
+exit $RETVAL

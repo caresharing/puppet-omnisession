@@ -1,0 +1,17 @@
+redis:
+  url: <%= $omnisession::redis_url %>
+listen:
+  - <%= $omnisession::bind_address -%>:<%= $omnisession::port %>
+count: <%= $omnisession::count %>
+
+<% unless $omnisession::log_file =~ Undef { -%>
+log_file: <%= $omnisession::log_file %>
+<% } -%>
+
+<% unless $omnisession::pid_file =~ Undef { -%>
+pid_file: <%= $omnisession::pid_file %>
+<% } -%>
+
+<% unless $omnisession::control_port =~ Undef { -%>
+control_port: <%= $omnisession::control_port %>
+<% } -%>
