@@ -9,12 +9,8 @@
 # description:  Omnisession Server
 # processname:  omnisessiond
 # config: /etc/mogilicious/omnisessiond.yml
-# config: /etc/mogilicious/mogilicious.yml
 # pidfile: /var/run/omnisessiond/omnisessiond.pid
 #
-
-# source function library
-. /etc/rc.d/init.d/functions
 
 RETVAL=0
 PIDFILE=<%= $omnisession::lock_file %>
