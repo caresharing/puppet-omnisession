@@ -16,6 +16,8 @@ class omnisession (
 
 ) inherits ::omnisession::params {
 
+  include ruby
+
   package { "palmade-omnisession":
     ensure   => $gem_version,
     provider => 'gem',
