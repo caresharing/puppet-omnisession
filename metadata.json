@@ -1,15 +1,15 @@
 {
   "name": "caresharing-omnisession",
-  "version": "0.1.0",
-  "author": "caresharing",
-  "summary": null,
+  "version": "0.1.1",
+  "author": "Jan Mendoza",
+  "summary": "Installs the omnisession gem as a service",
   "license": "Apache-2.0",
   "source": "",
-  "project_page": null,
+  "project_page": "https://github.com/caresharing/puppet-omnisession",
   "issues_url": null,
   "dependencies": [
     {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"},
-    {"name":"puppetlabs-ruby","version_requirement":">= 1.0.0"}
+    {"name":"puppetlabs-ruby","version_requirement":">= 0.4.0"}
   ]
 }
 
